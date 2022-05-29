@@ -2,6 +2,9 @@ import ./default.nix {
   name = "demo";
   language = "bash";
   description = "Demo CLI generated";
+  target.bash.prelude = ''
+    echo "Starting..."
+  '';
   action.bash = ''
     echo Hello, world
   '';

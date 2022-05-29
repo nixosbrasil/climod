@@ -8,6 +8,11 @@ in {
   ];
   options = {
     target.bash = {
+      prelude = mkOption {
+        type = types.lines;
+        description = "Stuff that must be added before the argument parser";
+        default = "";
+      };
       shebang = mkOption {
         type = types.str;
         description = "Script shebang";
@@ -158,7 +163,7 @@ in {
         ${config.target.bash.shebang}
         set -eu
         function error {
-          echo "error: $@" >&2
+          echo "$(bold "error"): $@" >&2
           exit 1
         }
         function bold {
@@ -168,6 +173,7 @@ in {
             printf "$*"
           fi
         }
+        ${config.target.bash.prelude}
 
         ${validators'''}
 
