@@ -9,10 +9,6 @@ in
     ./validator.nix
   ];
   options = {
-    target = mkOption {
-      type = types.attrsOf types.str;
-      description = "Outputs";
-    };
     shebang = mkOption {
       type = types.str;
       description = "Script shebang";

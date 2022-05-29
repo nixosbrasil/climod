@@ -1,5 +1,6 @@
 import ./default.nix {
   name = "demo";
+  language = "bash";
   description = "Demo CLI generated";
   action = ''
     echo Hello, world
