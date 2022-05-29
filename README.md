@@ -18,3 +18,6 @@ With this library and Nix now you can. See the [example](./example.nix) to get m
     - Subcommands
     - Prelude (setup code before anything but `set -eu` and shebang)
     - Your payload code just consume environment variables
+# What doesn't work
+- Positional arguments. All input values are flag based so far.
+- List of things. Each flag can only be provided once.
