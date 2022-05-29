@@ -25,5 +25,6 @@ in
       checkPhase = ''
           shellcheck $out/bin/$name
       '';
+      meta.mainProgram = config.name;
     };
   }
