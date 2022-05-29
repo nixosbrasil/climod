@@ -1,22 +1,30 @@
 {lib, config, ...}:
 let
-  inherit (lib) mkOption types optionalString;
+  inherit (lib) mkOption types optionalString mkIf;
   inherit (builtins) concatStringsSep length attrValues mapAttrs filter;
-in
-{
+in {
   imports = [
-    ./base.nix
     ./validator.nix
   ];
   options = {
-    shebang = mkOption {
-      type = types.str;
-      description = "Script shebang";
-      default = "#!/usr/bin/env bash";
+    target.bash = {
+      shebang = mkOption {
+        type = types.str;
+        description = "Script shebang";
+        default = "#!/usr/bin/env bash";
+      };
+      code = mkOption {
+        type = types.lines;
+        description = "Code output";
+      };
+      validators = mkOption {
+        type = types.attrsOf types.str;
+        description = "Parameter validators";
+      };
     };
   };
   config = {
-    target.shellscript = let
+    target.bash.code = let
       buildHelp = cfg: let
           subcommandTree = cfg._subcommand;
           subcommandTree' = concatStringsSep " " subcommandTree;
@@ -133,7 +141,7 @@ in
           esac
         done
         ${requiredFlags'''}
-        ${cfg.action}
+        ${cfg.action.bash}
         exit 0
         '';
 
@@ -142,12 +150,12 @@ in
           ${v}
         }
       '';
-      validators = config.validators;
+      validators = config.target.bash.validators;
       validators' = mapAttrs mkValidatorHandler validators;
       validators'' = attrValues validators';
       validators''' = concatStringsSep "\n" validators'';
     in ''
-        ${config.shebang}
+        ${config.target.bash.shebang}
         set -eu
         function error {
           echo "error: $@" >&2

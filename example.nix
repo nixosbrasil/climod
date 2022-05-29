@@ -2,7 +2,7 @@ import ./default.nix {
   name = "demo";
   language = "bash";
   description = "Demo CLI generated";
-  action = ''
+  action.bash = ''
     echo Hello, world
   '';
   subcommands = {
@@ -18,7 +18,7 @@ import ./default.nix {
               variable = "GREET_USER";
             }
           ];
-          action = "echo Hello, $GREET_USER!";
+          action.bash = "echo Hello, $GREET_USER!";
         };
       };
     };

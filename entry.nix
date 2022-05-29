@@ -10,7 +10,7 @@ let
       ./modules
     ];
   };
-in (writeShellScript module.config.name module.config.target.shellscript).overrideAttrs (_: {
+in (writeShellScript module.config.name module.config.target.bash.code).overrideAttrs (_: {
   passthru = {
     inherit (module) config options;
     inherit module;

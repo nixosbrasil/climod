@@ -6,13 +6,8 @@ let
   inherit (types) str attrsOf submodule;
 in
 {
-  options = {
-    validators = mkOption {
-      type = attrsOf str;
-    };
-  };
   config = {
-    validators = {
+    target.bash.validators = {
       any = "true";
       fso = ''test -e "$1"'';
       file = ''test -f "$1"'';

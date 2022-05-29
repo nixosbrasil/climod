@@ -58,9 +58,12 @@ let
       description = "Subcommands";
     };
     action = mkOption {
-      type = str;
-      default = "exit 0";
-      description = "Action itself of the command or subcommand";
+      type = attrsOf str;
+      default = {
+        bash = "exit 0";
+        c = "exit(0);";
+      };
+      description = "Attr of the action code itself of the command or subcommand for each language that you want to support";
     };
   };
 in {
