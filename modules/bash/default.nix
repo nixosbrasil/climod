@@ -5,6 +5,7 @@ let
 in {
   imports = [
     ./validator.nix
+    ./derivation.nix
   ];
   options = {
     target.bash = {

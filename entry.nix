@@ -1,5 +1,6 @@
 { lib
 , writeShellScript
+, pkgs
 }:
 config:
 let
@@ -9,8 +10,12 @@ let
       config
       ./modules
     ];
+    specialArgs = {
+      inherit pkgs;
+    };
   };
-in (writeShellScript module.config.name module.config.target.bash.code).overrideAttrs (_: {
+  out = module.config.target.bash.drv;
+in out.overrideAttrs (_: {
   passthru = {
     inherit (module) config options;
     inherit module;
