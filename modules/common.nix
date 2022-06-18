@@ -55,7 +55,7 @@ let
         config = { inherit name; }; 
       }));
       default = {};
-      description = "Subcommands";
+      description = "Subcommands has all the attributes of commands, even subcommands...";
     };
     action = mkOption {
       type = attrsOf str;
