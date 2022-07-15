@@ -57,6 +57,11 @@ let
       default = {};
       description = "Subcommands has all the attributes of commands, even subcommands...";
     };
+    allowExtraArguments = mkOption {
+      type = bool;
+      default = false;
+      description = "Allow the command to receive unmatched arguments";
+    };
     action = mkOption {
       type = attrsOf str;
       default = {

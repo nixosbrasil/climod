@@ -6,7 +6,13 @@ import ./default.nix {
   '';
   action.bash = ''
     echo Hello, world
+    echo $#
+    while [ $# -gt 0 ]; do
+      echo "$1"
+      shift
+    done
   '';
+  allowExtraArguments = true;
   subcommands = {
     eoq = {
       description = "Eoq subcommand";

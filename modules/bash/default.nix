@@ -90,25 +90,22 @@ in {
         mkFlagHandler = flag:
         let
           caseExpr = concatStringsSep " | " flag.keywords;
-          varAttrExpr = ''${flag.variable}="$1"'';
+          varAttrExpr = ''${flag.variable}="$2"'';
           validateExprError = ''echo "flag '$flagkey' (${flag.variable}) doesn't pass the validation as a ${flag.validator}" '';
 
           isBool = flag.validator == "bool";
-          validateExpr = optionalString (!isBool) ''validate_${flag.validator} "$arg" || ${validateExprError}'';
+          validateExpr = optionalString (!isBool) ''validate_${flag.validator} "$2" || ${validateExprError}'';
         in ''
           ${caseExpr} )
-            shift
             ${optionalString isBool "export ${flag.variable}=1"}
-            ${optionalString isBool "continue"}
+            ${optionalString isBool "shift; continue"}
 
-            if [ $# -eq 0 ]; then
+            if [ $# -eq 1 ]; then
               error "the flag '$flagkey' expects a value of type ${flag.validator} but found end of parameters"
             fi
-
-            arg="$1"; shift
-
-            export ${flag.variable}="$arg"
             ${validateExpr}
+            ${varAttrExpr}
+            shift; shift
             break
           ;;
         '';
@@ -142,12 +139,20 @@ in {
               ;;
                 ${flags''}
               *)
-                error "invalid keyword argument near '$flagkey'"
+                  ${if cfg.allowExtraArguments then ''
+                    ARGS+=("$1")
+                    shift
+                  '' else ''
+                    error "invalid keyword argument near '$flagkey'"
+                  ''}
               ;;
           esac
         done
         ${requiredFlags'''}
-        ${cfg.action.bash}
+        function payload {
+          ${cfg.action.bash}
+        }
+        payload ${"$"}{ARGS[@]}
         exit 0
         '';
 
