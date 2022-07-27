@@ -1,4 +1,4 @@
-# climod
+# climod [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
  Modular generated command line interfaces using the same technology as the NixOS module system.
 
