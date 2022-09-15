@@ -1,4 +1,7 @@
-import ./default.nix {
+{ pkgs ? import <nixpkgs> {} }:
+let
+  climod = pkgs.callPackage ./default.nix { inherit pkgs; };
+in climod {
   name = "demo";
   description = "Demo CLI generated";
   target.bash.prelude = ''

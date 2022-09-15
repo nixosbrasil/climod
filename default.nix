@@ -1,3 +1,3 @@
-let
-  pkgs = import <nixpkgs> {};
-in pkgs.callPackage ./entry.nix {}
+{ pkgs ? import <nixpkgs> {}
+}:
+pkgs.callPackage ./entry.nix {}
