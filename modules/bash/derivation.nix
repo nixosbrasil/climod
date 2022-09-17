@@ -11,14 +11,13 @@ in
     };
     config.target.bash.drv = pkgs.stdenv.mkDerivation {
       inherit (config) name;
-      inherit (config.target.bash) code;
+      code = builtins.toFile "code" config.target.bash.code;
 
       dontUnpack = true;
 
       installPhase = ''
           mkdir $out/bin -p
-          echo "$code" > $out/bin/$name
-          chmod +x $out/bin/$name
+          install -m 755 $code $out/bin/$name
       '';
 
       checkInputs = [ shellcheck ];
