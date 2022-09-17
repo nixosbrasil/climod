@@ -35,7 +35,7 @@ let
   });
   command = {
     name = mkOption {
-      type = strMatching "[a-zA-Z_][a-zA-Z0-9_\\-]*";
+      type = strMatching "[a-zA-Z0-9_][a-zA-Z0-9_\\-]*";
       default = "example";
       description = "Name of the command shown on --help";
     };
