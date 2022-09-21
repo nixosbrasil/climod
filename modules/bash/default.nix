@@ -152,7 +152,7 @@ in {
         function payload {
           ${cfg.action.bash}
         }
-        payload ${"$"}{ARGS[@]}
+        payload "${"$"}{ARGS[@]}"
         exit 0
         '';
 

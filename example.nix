@@ -17,6 +17,15 @@ in climod {
   '';
   allowExtraArguments = true;
   subcommands = {
+    args = {
+      description = "Print args";
+      allowExtraArguments = true;
+      action.bash = ''
+        for line in "$@"; do
+          echo $line
+        done
+      '';
+    };
     eoq = {
       description = "Eoq subcommand";
       subcommands = {
