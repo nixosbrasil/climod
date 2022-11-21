@@ -1,0 +1,17 @@
+jobs:
+  gh-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+      - uses: cachix/install-nix-action@v15
+        with:
+          extra_nix_config: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          nix_path: channel:nixos-22.05
+      - name: Build
+        run: nix develop --command gh-actions-gh-pages-build
+"on":
+  push:
+    branches:
+      - master

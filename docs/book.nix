@@ -32,4 +32,6 @@ in
     "${fake-mod}"
     ../modules/bash/default.nix
   ];
+  gh-actions.gh-pages.build  = "publish-as-gh-pages";
+  gh-actions.gh-pages.enable = true;
 }
