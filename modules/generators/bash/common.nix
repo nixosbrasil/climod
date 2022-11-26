@@ -1,12 +1,8 @@
-{lib, config, ...}:
+{ lib, config, ... }:
 let
   inherit (lib) mkOption types optionalString mkIf;
   inherit (builtins) concatStringsSep length attrValues mapAttrs filter;
 in {
-  imports = [
-    ./validator.nix
-    ./derivation.nix
-  ];
   options = {
     target.bash = {
       prelude = mkOption {

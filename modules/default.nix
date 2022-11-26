@@ -2,6 +2,7 @@
 {
   imports = [
     ./common.nix
-    ./bash
+    ./generators
+    ./completions
   ];
 }
