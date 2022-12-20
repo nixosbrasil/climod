@@ -7,6 +7,7 @@ in
       target.bash.drv = mkOption {
         type = types.package;
         description = "Package using the shell script version as a binary";
+        internal = true;
       };
     };
     config.target.bash.drv = pkgs.stdenv.mkDerivation {

@@ -1,10 +1,11 @@
 { lib
 , config
+, expandRecursiveness ? true
 , ...
-}:
+}@args:
 let
   inherit (lib) types mkOption;
-  inherit (types) str strMatching attrsOf listOf submodule nullOr nonEmptyListOf bool;
+  inherit (types) str strMatching attrsOf listOf submodule nullOr nonEmptyListOf bool anything;
   flag = submodule ({config, ...}: {
     options = {
       keywords = mkOption {
@@ -50,10 +51,12 @@ let
       description = "Command flags";
     };
     subcommands = mkOption {
-      type = attrsOf (submodule ({name, ...}: {
-        options = command;
-        config = { inherit name; }; 
-      }));
+      type = if expandRecursiveness
+        then (attrsOf (submodule ({name, ...}: {
+          options = command;
+          config = { inherit name; };
+        })))
+        else attrsOf anything;
       default = {};
       description = "Subcommands has all the attributes of commands, even subcommands...";
     };

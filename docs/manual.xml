@@ -1,0 +1,20 @@
+<book xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      version="5.0"
+      xml:id="book-climod-manual">
+ <info>
+  <title>Climod Manual</title>
+ </info>
+ <preface>
+  <title>Preface</title>
+  <para>
+   This manual will eventually describe how to install, use, and extend Climod.
+  </para>
+ </preface>
+ <appendix xml:id="ch-climod-options">
+  <title>Climod Module Options</title>
+  <xi:include href="./nmd-result/climod-options.xml" />
+ </appendix>
+ <!-- <xi:include href="./release-notes/release-notes.xml" /> --> <!-- reserved for the future -->
+</book>

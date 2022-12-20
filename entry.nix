@@ -1,6 +1,7 @@
 { lib
 , writeShellScript
 , pkgs
+, callPackage
 }:
 config:
 let
@@ -12,6 +13,7 @@ let
     ];
     specialArgs = {
       inherit pkgs;
+      expandRecursiveness = true;
     };
   };
   out = module.config.target.bash.drv;
@@ -19,5 +21,6 @@ in out.overrideAttrs (_: {
   passthru = {
     inherit (module) config options;
     inherit module;
+    docs = callPackage ./docs {};
   };
 })

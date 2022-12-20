@@ -4,5 +4,6 @@
     ./common.nix
     ./generators
     ./completions
+    ./docs
   ];
 }
